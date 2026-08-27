@@ -1,0 +1,52 @@
+{
+  "name": "qa-test-management-platform",
+  "version": "1.0.0",
+  "description": "A professional QA test management platform — manage projects, test cases, executions, and bugs with metrics. Built as a QA + AI-assisted development portfolio project.",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm --workspace @qa/backend run dev",
+    "dev:web": "npm --workspace @qa/frontend run dev",
+    "build": "npm --workspace @qa/backend run build && npm --workspace @qa/frontend run build",
+    "type-check": "npm --workspace @qa/backend run type-check && npm --workspace @qa/frontend run type-check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test:unit && npm run test:api",
+    "test:unit": "vitest run --project unit",
+    "test:api": "vitest run --project integration",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:install": "playwright install --with-deps chromium",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "npm --workspace @qa/backend run db:migrate",
+    "quality-gate": "npm run lint && npm run type-check && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^22.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "concurrently": "^9.0.1",
+    "drizzle-kit": "^0.24.2",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.10.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0",
+    "vitest": "^3.2.4"
+  }
+}
