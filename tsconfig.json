@@ -1,10 +1,11 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node", "@playwright/test"],
-    "moduleResolution": "Bundler",
-    "noEmit": true,
-    "noUnusedLocals": false
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"],
+    "lib": ["ES2022"]
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
